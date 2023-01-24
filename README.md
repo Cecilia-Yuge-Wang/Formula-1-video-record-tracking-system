@@ -1,2 +1,2 @@
-# TennisTrackingCamera-RealTimeEmbeddedProgramming
-This is the Tennis Tracking Camera project of team 22, ENG5220: Real Time Embedded Programming (2022-23) of University of Glasgow
+# Formula-1-video-record-tracking-system-RealTimeEmbeddedProgramming
+This is the Formula-1-video-record-tracking-system project of team 22, ENG5220: Real Time Embedded Programming (2022-23) of University of Glasgow
