@@ -25,7 +25,7 @@ The video can be transmitted to the cellphone, iPad, or laptop etc..Only needs t
 The system can switch between manual target selection and automatic target selection.<br>
 
 >**WIP: Xbox Controller controlling**<br>
->This is a work in progress planning. We hope to use an Xbox >controller (Playstation, NS controller and etc...) to >control the camera platform rotating and lock on in manual >mode. However, this is only a WIP planning. **It may be >cancelled due to the final result and timetable.**<br>
+>This is a work in progress planning. We hope to use an Xbox controller (Playstation, NS controller and etc...) to control the camera platform rotating and lock on in manual mode. However, this is only a WIP planning. **It may be cancelled due to the final result and timetable.**<br>
 
 ## Install & Guidance
 This project needs to use OpenCV. You need to set up the environment of OpenCV at first. The following steps will guide you how to make it. in this project, the openCV's version we use is 4.7.0. The Raspberry 4B is installed with system of Raspberry Pi OS with desktop (32-bit)<br>
