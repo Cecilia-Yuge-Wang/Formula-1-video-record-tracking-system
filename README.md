@@ -14,10 +14,10 @@ In this project, a Raspberry 4B will be used as main control unit. C++ is mainly
 This project's development thanks to these contributors<br>  
 |Name|ID|
 |------|------|
-|[Haihang Xia](*https://github.com/Haihang-Xia)| *2743062X*|<br>
-|[Yuge Wang](*https://github.com/Cecilia-Yuge-Wang) |*2809017W*|<br>
-|[Minghao Xuan](*https://github.com/Ranger5120) |*2782500X*|<br>
-|[Chengjia Yu](*https://github.com/CHENGJIA-YU)|*2780667Y*|<br>
+|[Haihang Xia](https://github.com/Haihang-Xia)| *2743062X*|<br>
+|[Yuge Wang](https://github.com/Cecilia-Yuge-Wang) |*2809017W*|<br>
+|[Minghao Xuan](https://github.com/Ranger5120) |*2782500X*|<br>
+|[Chengjia Yu](https://github.com/CHENGJIA-YU)|*2780667Y*|<br>
 ## Features
 This system includes three parts. A camera installed on the platform driven by two motors is used to capture the video and send it back to raspberry. The raspberry deals with the tracking algorithm and gives instruction to the servo motors, to achieve the tracking process.<br>
 <br>
