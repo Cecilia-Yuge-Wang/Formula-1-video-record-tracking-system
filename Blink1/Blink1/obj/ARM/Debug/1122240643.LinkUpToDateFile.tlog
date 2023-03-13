@@ -1,0 +1,1 @@
+g++ -o "/home/pi/projects/Blink1/bin/ARM/Debug/Blink1.out" -Wl,--no-undefined -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack /home/pi/projects/Blink1/obj/ARM/Debug/main.o -lwiringPi

@@ -1,0 +1,22 @@
+﻿  正在验证源
+  正在将源远程复制到“192.168.137.11”
+  正在验证体系结构
+  正在验证体系结构
+  正在启动远程生成
+  正在编译源:
+  main.cpp
+D:\embeddingProject\Formula-1-video-record-tracking-system\Blink1\Blink1\main.cpp(25,6): warning : unused variable ‘pwmVal’ [-Wunused-variable]
+D:\embeddingProject\Formula-1-video-record-tracking-system\Blink1\Blink1\main.cpp(25,6): warning :    25 |  int pwmVal = 10;
+D:\embeddingProject\Formula-1-video-record-tracking-system\Blink1\Blink1\main.cpp(25,6): warning :       |      ^~~~~~
+D:\embeddingProject\Formula-1-video-record-tracking-system\Blink1\Blink1\main.cpp(48,15): warning : conversion from ‘double’ to ‘int’ changes value from ‘1.3300000000000001e+1’ to ‘13’ [-Wfloat-conversion]
+D:\embeddingProject\Formula-1-video-record-tracking-system\Blink1\Blink1\main.cpp(48,15): warning :    48 |  for (int j = 13.3; j > 8.3; j--)
+D:\embeddingProject\Formula-1-video-record-tracking-system\Blink1\Blink1\main.cpp(48,15): warning :       |               ^~~~
+D:\embeddingProject\Formula-1-video-record-tracking-system\Blink1\Blink1\main.cpp(51,16): warning : conversion from ‘double’ to ‘int’ changes value from ‘6.7000000000000002e+0’ to ‘6’ [-Wfloat-conversion]
+D:\embeddingProject\Formula-1-video-record-tracking-system\Blink1\Blink1\main.cpp(51,16): warning :    51 |   for (int i = 6.7; i <= 13.3; i++)
+D:\embeddingProject\Formula-1-video-record-tracking-system\Blink1\Blink1\main.cpp(51,16): warning :       |                ^~~
+D:\embeddingProject\Formula-1-video-record-tracking-system\Blink1\Blink1\main.cpp(57,16): warning : conversion from ‘double’ to ‘int’ changes value from ‘1.3300000000000001e+1’ to ‘13’ [-Wfloat-conversion]
+D:\embeddingProject\Formula-1-video-record-tracking-system\Blink1\Blink1\main.cpp(57,16): warning :    57 |   for (int i = 13.3; i >= 6.7; i--)
+D:\embeddingProject\Formula-1-video-record-tracking-system\Blink1\Blink1\main.cpp(57,16): warning :       |                ^~~~
+  正在链接对象
+  Blink1.vcxproj -> D:\embeddingProject\Formula-1-video-record-tracking-system\Blink1\Blink1\bin\ARM\Debug\Blink1.out
+  正在调用“gpio export 17 out; gpio export 27 out”，工作目录:“/home/pi/projects/Blink1/”
