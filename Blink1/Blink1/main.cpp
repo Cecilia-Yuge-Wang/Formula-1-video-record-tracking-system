@@ -2,8 +2,8 @@
 #include<softPwm.h>
 #include<iostream>
 
-#define motor1  27//高低机
-#define	motor2	17//方向机
+#define motor1  27//方向机
+#define	motor2	17//高低机
 
 using namespace std;
 
@@ -11,6 +11,8 @@ void normalScanning();
 void verticalScanning();
 void turnleft(int);
 void turnright(int);
+void turnup(int);
+void turndown(int);
 
 int main(void)
 {
@@ -22,17 +24,19 @@ int main(void)
 	softPwmCreate(motor1, 0, 100);
 	softPwmCreate(motor2, 0, 100);
 
-	int pwmVal = 10;
+	
 	/*delay(1000);
 	softPwmWrite(motor1, 5);
 	softPwmWrite(motor2, 15);*/
+	int pwmVal = 10;
+
 
 
 	while (true)
 	{
-		softPwmWrite(motor1, 10);
+		softPwmWrite(motor2, 10);
 		delay(1000);
-		softPwmWrite(motor1, 13);
+		softPwmWrite(motor2, 15);
 		delay(1000);
 	}
 
@@ -83,17 +87,34 @@ void verticalScanning()
 
 void turnleft(int pwm)
 {
-	int pwmVal = pwm;
 	int newVal = 0;
-	newVal = pwmVal--;
+	int pwmVal = pwm;
+	newVal = pwmVal-1;
 	softPwmWrite(motor1, newVal);
+
 }
 
 void turnright(int pwm)
 {
-	int pwmVal = pwm;
-	int newVal = 0;
-	newVal = pwmVal++;
-
+	int newVal, pwmVal;
+	pwmVal = pwm;
+	newVal = pwmVal + 1;
 	softPwmWrite(motor1, newVal);
+
+}
+
+void turnup(int pwm)
+{
+	int newVal = 0;
+	int pwmVal = pwm;
+	newVal = pwmVal - 1;
+	softPwmWrite(motor2, newVal);
+}
+
+void turndown(int pwm)
+{
+	int newVal = 0;
+	int pwmVal = pwm;
+	newVal = pwmVal + 1;
+	softPwmWrite(motor2, newVal);
 }
