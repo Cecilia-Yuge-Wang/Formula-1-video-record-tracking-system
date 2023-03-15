@@ -1,6 +1,6 @@
 ﻿#include <wiringPi.h>
-#include<softPwm.h>
-#include<iostream>
+#include <softPwm.h>
+#include <iostream>
 
 #define motor1  27//方向机
 #define	motor2	17//高低机
@@ -13,6 +13,8 @@ void turnleft(int);
 void turnright(int);
 void turnup(int);
 void turndown(int);
+void rotateleft();
+void rotateright();
 
 int main(void)
 {
@@ -21,23 +23,39 @@ int main(void)
 	pinMode(motor1, OUTPUT);
 	pinMode(motor2, OUTPUT);
 
-	softPwmCreate(motor1, 0, 100);
-	softPwmCreate(motor2, 0, 100);
+	softPwmCreate(motor1, 0, 400);
+	softPwmCreate(motor2, 0, 400);
 
 	
 	/*delay(1000);
 	softPwmWrite(motor1, 5);
 	softPwmWrite(motor2, 15);*/
-	int pwmVal = 10;
 
+	bool running = true;
 
-
-	while (true)
+	while (running)
 	{
-		softPwmWrite(motor2, 10);
-		delay(1000);
-		softPwmWrite(motor2, 15);
-		delay(1000);
+		char input;
+		std::cin>>input;
+
+		switch (input)
+		{
+		case '1':
+			rotateleft();
+			break;
+		case '2':
+			rotateright();
+			break;
+		case '3':
+			running = false;
+			break;
+		
+		default:
+			std::cout<<"Useless command"<<std::endl;
+			break;
+		}
+
+		
 	}
 
 	/*delay(1000);
@@ -117,4 +135,15 @@ void turndown(int pwm)
 	int pwmVal = pwm;
 	newVal = pwmVal + 1;
 	softPwmWrite(motor2, newVal);
+}
+
+
+void rotateleft()
+{
+	softPwmWrite(motor1,1);
+}
+
+void rotateright()
+{
+	softPwmWrite(motor1,20);
 }
