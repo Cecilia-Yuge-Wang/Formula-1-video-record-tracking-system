@@ -12,6 +12,8 @@ int main()
     wiringPiSetupSys();
 
     softPwmCreate(motor1, 0, 100);
+    softPwmCreate(motor2, 0, 100);
+
     int currentAngle = 0;
     
     while (true)
@@ -38,6 +40,26 @@ int main()
                 currentAngle = 1;
             }
             softPwmWrite(motor1, (int)(currentAngle / 180.0 * 20.0));
+        }
+        else if(input == 'w')
+        {
+            currentAngle += 15;
+            if(currentAngle > 180)
+           {
+            currentAngle = 180;
+           }
+            
+            softPwmWrite(motor2, (int)(currentAngle / 180.0 * 20.0));
+        }
+
+        else if(input == 's')
+        {
+            currentAngle -= 15;
+            if(currentAngle < 1)
+            {
+                currentAngle = 1;
+            }
+            softPwmWrite(motor2, (int)(currentAngle / 180.0 * 20.0));
         }
 
         else 
