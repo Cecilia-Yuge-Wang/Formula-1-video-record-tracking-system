@@ -12,22 +12,39 @@ int main()
     wiringPiSetupSys();
 
     softPwmCreate(motor1, 0, 100);
-    int currentAngle=0;
+    int currentAngle = 0;
+    
     while (true)
     {
-        int input;
+        char input;
         std::cin>>input;
 
-        if (input == 1)
+        if (input == 'a')
         {
            currentAngle  += 15;
-           if(currentAngle>180)
+           if(currentAngle > 180)
            {
             currentAngle = 180;
            }
             
-            softPwmWrite(motor1, (int)(currentAngle / 180.0 * 20.0) );
+            softPwmWrite(motor1, (int)(currentAngle / 180.0 * 20.0));
         }
+        
+        else if(input == 'd')
+        {
+            currentAngle -= 15;
+            if(currentAngle < 1)
+            {
+                currentAngle = 1;
+            }
+            softPwmWrite(motor1, (int)(currentAngle / 180.0 * 20.0));
+        }
+
+        else 
+        {
+            break;
+        }
+        
     }
 
     return 0;
