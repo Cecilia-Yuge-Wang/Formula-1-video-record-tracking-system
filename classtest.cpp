@@ -1,24 +1,54 @@
 #include<wiringPi.h>
 #include<softPwm.h>
 
-#define motor1 27;
-#define motor2 17;
+#define motor1 27;//方向机
+#define motor2 17;//高低机
 
 using namespace std;
 
-class motorcontrol
+class motor
 {
 private:
-    /* data */
+    int pinNumber;
+    int currentAngle = 0;
+    int pin;
+
+
 public:
-    motorcontrol(/* args */);
-    ~motorcontrol();
+    motor(int i);
+    void clockwiseRotate();
+    void antiClockRotate();
+    
 };
 
-motorcontrol::motorcontrol(/* args */)
+motor::motor(int i)
 {
+    pin = i;
+    wiringPiSetupSys();
+    softPwmCreate(pin, 0, 100);
 }
 
-motorcontrol::~motorcontrol()
+void motor::clockwiseRotate()
 {
+    currentAngle += 15;
+    if(currentAngle > 180)
+           {
+            currentAngle = 180;
+           }
+            
+            softPwmWrite(pin, (int)(currentAngle / 180.0 * 20.0));
 }
+
+void motor::antiClockRotate()
+{
+    currentAngle -= 15;
+    currentAngle -= 15;
+            if(currentAngle < 1)
+            {
+                currentAngle = 1;
+            }
+            softPwmWrite(pin, (int)(currentAngle / 180.0 * 20.0));
+}
+
+
+
