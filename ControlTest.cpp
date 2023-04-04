@@ -32,8 +32,7 @@ int main()
 
         pid_y += PID_Y.calculate(720 / 2, image_y);
         pid_x += PID_X.calculate(1280 / 2, image_x);
-        cout << pid_y << endl;
-        cout << pid_x << endl;
+
         verticalMotor.Rotate(pid_y);
         horizontalMotor.Rotate(pid_x);
 
