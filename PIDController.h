@@ -1,25 +1,23 @@
 
 
 
-
-
-
 class PIDController {
 
 public:
-	PIDController(double Kp, double Ki, double Kd);
-	double calculate(double input, double target);
+	void PID_Init(float kp, float ki, float kd);
+	float calculate(float input, float target);
+
 
 private:
-	double Kp;
-	double Ki;
-	double Kd;
+	float KP;
+	float KI;
+	float KD;
 
-	double Error;
-	double LastError;
-	double LastlastError;
+	float Error;
+	float LastError;
+	float LastlastError;
 
-	double PidOutput;
-	double SystemOutput;
-	double LastSystemOutput;
+	float Increment;
+	float PidOutput;
+
 };
