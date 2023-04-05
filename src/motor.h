@@ -1,7 +1,6 @@
 #include<wiringPi.h>
 #include<softPwm.h>
 
-using namespace std;
 
 class motor
 {
@@ -15,5 +14,6 @@ public:
     motor(int i);
     void clockwiseRotate();
     void antiClockRotate();
+    void Rotate(float angle);
     
 };

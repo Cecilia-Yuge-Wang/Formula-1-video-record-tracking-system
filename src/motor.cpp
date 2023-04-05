@@ -31,3 +31,14 @@ void motor::antiClockRotate()
             softPwmWrite(pin, (int)(currentAngle / 180.0 * 20.0));
 }
 
+void motor::Rotate(float angle)
+{
+    if (angle > 180) {
+        angle = 180;
+    }
+    else if (angle < 1) {
+        angle = 1;
+    }
+    softPwmWrite(pin, (int)(angle * 10 / 180 + 2.5));
+}
+

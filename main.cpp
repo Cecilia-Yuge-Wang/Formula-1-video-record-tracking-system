@@ -1,7 +1,7 @@
 #include<wiringPi.h>
 #include<softPwm.h>
 #include<iostream>
-#include "motor.h"
+#include "src/motor.h"
 
 #define motor1 17 //vertical
 #define motor2 27 //horizontal
