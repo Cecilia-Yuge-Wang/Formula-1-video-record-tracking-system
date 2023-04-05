@@ -1,8 +1,8 @@
 #include<wiringPi.h>
 #include<softPwm.h>
 #include<iostream>
-#include "motorNew.h"
-#include "src/PIDController.h"
+#include "../src/motor.h"
+#include "../src/PIDController.h"
 
 #define motor1 17 //vertical
 #define motor2 27 //horizontal
