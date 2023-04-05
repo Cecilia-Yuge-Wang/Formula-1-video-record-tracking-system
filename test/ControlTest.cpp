@@ -2,7 +2,7 @@
 #include<softPwm.h>
 #include<iostream>
 #include "motorNew.h"
-#include "PIDController.h"
+#include "src/PIDController.h"
 
 #define motor1 17 //vertical
 #define motor2 27 //horizontal
