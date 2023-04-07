@@ -1,3 +1,6 @@
+#ifndef pantilt_H
+#define pantilt_H
+
 #include<wiringPi.h>
 #include<softPwm.h>
 #include<iostream>
@@ -8,7 +11,7 @@ using namespace std;
 class pantilt
 {
 public:
-    pantilt(int verticalPin, int horizontalPin):horizontal(horizontalPin),vertical(verticalPin){};
+    pantilt(int verticalPin, int horizontalPin);
     void left();
     void right();
     void up();
@@ -18,3 +21,5 @@ private:
     motor horizontal;
     motor vertical;
 };
+
+#endif
