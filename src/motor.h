@@ -1,3 +1,6 @@
+#ifndef motor_H
+#define motor_H
+
 #include<wiringPi.h>
 #include<softPwm.h>
 
@@ -17,3 +20,5 @@ public:
     void Rotate(float angle);
     
 };
+
+#endif 
