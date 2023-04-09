@@ -9,6 +9,7 @@ private:
     motor Vertical;
     motor Horizontal;
 public:
+    Controller(int motor1, int motor2);
     void ServoControl(float image_y, float image_x);
 };
 
