@@ -1,6 +1,7 @@
 #include"Controller.h"
 #include"motor.h"
 
+Controller::Controller(int motor1,int motor2):Vertical(motor1),Horizontal(motor2){};
 
 void Controller::ServoControl(float image_y,float image_x)
 {
