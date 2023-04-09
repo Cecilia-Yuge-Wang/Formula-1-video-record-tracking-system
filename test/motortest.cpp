@@ -12,7 +12,8 @@ int main()
     float image_y;
     float image_x;
 
-
+    motor Vertical(motor1);
+    motor Horizontal(motor2);
 
     while(true)
     {
@@ -21,17 +22,50 @@ int main()
         
         if(image_y>360)
         {
-            motor1.clockwiseRotate();
+            if(image_x>640){
+                Horizontal.antiClockRotate(); //right
+                delay(100);
+                Vertical.clockwiseRotate(); //down
+                delay(100);
+            }else{
+                Horizontal.clockwiseRotate(); //left
+                delay(100);
+                Vertical.clockwiseRotate(); //down
+                delay(100);
+            }
+            
+        }else if(image_y<360){
+            if(image_x>640){
+                Horizontal.antiClockRotate(); //right
+                delay(100);
+                Vertical.antiClockRotate(); //up
+                delay(100);
+            }else{
+                Horizontal.clockwiseRotate(); //left
+                delay(100);
+                Vertical.antiClockRotate(); //up
+                delay(100);
+            }
+        }
+
+ /*       if(image_y>360)
+        {
+            Vertical.clockwiseRotate(); //up
+            delay(50);
         }else{
-            motor1.antiClockRotate();
+            Vertical.antiClockRotate(); //down
+            delay(50);
         }
 
         if(image_x>640){
-            motor2.clockwiseRotate();
+            Horizontal.antiClockRotate(); //right
+            delay(50);
         }else{
-            motor2.antiClockRotate();
+            Horizontal.clockwiseRotate(); //left
+            delay(50);
         }
         
+*/
 
     }
 
