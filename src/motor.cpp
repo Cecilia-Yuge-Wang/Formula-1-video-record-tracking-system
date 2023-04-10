@@ -11,7 +11,7 @@ motor::motor(int i)
 
 void motor::clockwiseRotate()
 {
-    currentAngle += 15;
+    currentAngle += 4;
     if(currentAngle > 180)
            {
             currentAngle = 180;
@@ -22,8 +22,7 @@ void motor::clockwiseRotate()
 
 void motor::antiClockRotate()
 {
-    currentAngle -= 15;
-    currentAngle -= 15;
+    currentAngle -= 4;
             if(currentAngle < 1)
             {
                 currentAngle = 1;

@@ -9,7 +9,7 @@ class motor
 {
 private:
     int pinNumber;
-    int currentAngle = 1;
+    int currentAngle = 90;
     int pin;
 
 
