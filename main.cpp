@@ -18,8 +18,8 @@ int main()
     
     CNN api;
 
-    api.loadModel("./model/F1F1-opt.param",
-                  "./model/F1F1-opt.bin");
+    api.loadModel("./model/F1F1.param",
+                  "./model/F1F1.bin");
    
     
     cv::VideoCapture cap(0);
