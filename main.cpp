@@ -1,48 +1,78 @@
+#include "frameprocess.h"
 #include<wiringPi.h>
 #include<softPwm.h>
 #include<iostream>
-#include "src/motor.h"
+#include "Controller.h"
 
-#define motor1 17 //vertical
-#define motor2 27 //horizontal
+#define motor1 17 // Vertical
+#define motor2 27 // Horizontal
 
-using namespace std;
+
 
 int main()
-{
-    motor verticalMotor(motor1);
-    motor horizontalMotor(motor2);
+{   
 
-    while (true)
-    {
-        char choice = getchar();
+    Controller Controller(motor1,motor2);
     
-        switch (choice)
-        {
-            case 'a':
-                //turning left 
-                horizontalMotor.clockwiseRotate();
-                break;
-            
-            case 'd':
-                //turning right
-                horizontalMotor.antiClockRotate();
-                break;
-            
-            case 'w':
-                //turning up
-                verticalMotor.clockwiseRotate();
-                break;
-            
-            case 's':
-                //turning down
-                verticalMotor.antiClockRotate();
-                break;
-            
-            default:
-                break;
-        }
+    static const char* class_names[] = {"Ferrari"};
+    
+    CNN api;
+
+    api.loadModel("./model/F1F1-opt.param",
+                  "./model/F1F1-opt.bin");
+   
+    
+    cv::VideoCapture cap(0);
+    //cv::Mat cvImg = cv::imread("test.jpg"); 
+    if (!cap.isOpened()) {
+        std::cerr << "Failed to open camera." << std::endl;
+        return -1;
     }
+
+    
+    cv::Mat cvImg; 
+    
+    int Deter_x = 0;
+    
+    while (true){
+        
+        cap.read(cvImg); // ¶ÁÈ¡ÉãÏñÍ·Ã¿Ò»Ö¡
+        if (cvImg.empty()) {
+            std::cerr << "Failed to capture frame." << std::endl;
+            break;
+        }
+
+        std::vector<TargetBox> boxes;
+        
+        api.detection(cvImg, boxes);
+        
+        api.rectangle(cvImg, boxes, class_names);
+        
+       
+    	
+	
+        cv::imshow("Camera", cvImg); // ÏÔÊ¾ÉãÏñÍ·»­Ãæ
+        if (cv::waitKey(1) == 27) { // °´ÏÂEsc¼üÍË³öÑ­»·
+            break;
+        }
+        //cv::imwrite("output.png", cvImg);
+    
+        int rx = api.rx;
+    	int ry = api.ry;
+    
+        
+        
+        if (Deter_x != rx){
+            Controller.ServoControl(ry,rx);
+        }
+        
+        Deter_x = rx;
+        
+
+    }
+
+    
     
     return 0;
 }
+
