@@ -52,10 +52,12 @@ public:
     ~CNN();
     int rx;
     int ry;
+    cv::Mat srcImg;
 
     int loadModel(const char* paramPath, const char* binPath);
     int detection(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, 
                   const float thresh = 0.5);
+    void processThread(cv::VideoCapture cap); 
     void rectangle(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, const char* class_names[]);//{ return rx, ry; };
     //void rectangleThread(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, const char* class_names[]);
     //void rectangleT(const cv::Mat cvImg, std::vector<TargetBox>& boxes, const char* class_names[]);

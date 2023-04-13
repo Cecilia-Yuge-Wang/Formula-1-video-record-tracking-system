@@ -186,7 +186,7 @@ int CNN::predHandle(const ncnn::Mat *out, std::vector<TargetBox> &dstBoxes,
 }
 
 
-int CNN::detection(/*const cv::Mat srcImg,*/ std::vector<TargetBox> &dstBoxes, const float thresh)
+int CNN::detection(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, const float thresh)
 {   
     dstBoxes.clear();
 
@@ -241,7 +241,7 @@ void CNN::processThread(cv::VideoCapture cap) {
 
 
 
-void CNN::rectangle(/*const cv::Mat cvImg, */std::vector<TargetBox>& boxes, const char* class_names[]){
+/*void CNN::rectangle(/*const cv::Mat cvImg, std::vector<TargetBox>& boxes, const char* class_names[]){
    
    //cv::Mat cvImg = srcImg;//
    
@@ -281,11 +281,11 @@ void CNN::rectangle(/*const cv::Mat cvImg, */std::vector<TargetBox>& boxes, cons
     }
         //return rx, ry;
 
-}
+}*/
 
-/*void CNN::rectangle(const cv::Mat cvImg, std::vector<TargetBox>& boxes, const char* class_names[]){
+void CNN::rectangle(const cv::Mat cvImg, std::vector<TargetBox>& boxes, const char* class_names[]){
    
-   //cv::Mat cvImg = srcImg;//
+  
    
     for (int i = 0; i < boxes.size(); i++) {
         std::cout << boxes[i].x1 << " " << boxes[i].y1 << " " << boxes[i].x2 << " " << boxes[i].y2
@@ -323,7 +323,7 @@ void CNN::rectangle(/*const cv::Mat cvImg, */std::vector<TargetBox>& boxes, cons
     }
         //return rx, ry;
 
-}*/
+}
 
 
 
