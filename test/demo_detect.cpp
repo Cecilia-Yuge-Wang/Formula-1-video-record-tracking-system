@@ -1,9 +1,13 @@
 #include "frameprocess.h"
+#include "Controller.h"
 #include <thread>
+#include<iostream>
 
 
 int main()
 {   
+    Controller controller(motor1,motor2);
+
     static const char* class_names[] = {"Ferrari"};
     
     CNN api;
@@ -21,7 +25,7 @@ int main()
     
     cv::Mat cvImg;
     while (true){
-        cap >> cvImg; // ¶ÁÈ¡ÉãÏñÍ·Ã¿Ò»Ö¡
+        cap >> cvImg; // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Í·Ã¿Ò»Ö¡
         if (cvImg.empty()) {
             std::cerr << "Failed to capture frame." << std::endl;
             break;
@@ -35,10 +39,16 @@ int main()
 
         int rx = api.rx;
     	int ry = api.ry;
-    	std::cout<<"x = "<<rx << std::endl;
+        std::cout<<"x = "<<rx <<" y = "<<ry<< std::endl;    
+
+        controller.getCoordinate(api.ry, api.rx);
+    	
+
+
+
 	
-        cv::imshow("Camera", cvImg); // ÏÔÊ¾ÉãÏñÍ·»­Ãæ
-        if (cv::waitKey(1) == 27) { // °´ÏÂEsc¼üÍË³öÑ­»·
+        cv::imshow("Camera", cvImg); // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½
+        if (cv::waitKey(1) == 27) { // ï¿½ï¿½ï¿½ï¿½Escï¿½ï¿½ï¿½Ë³ï¿½Ñ­ï¿½ï¿½
             break;
         }
     }

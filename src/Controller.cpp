@@ -53,5 +53,8 @@ void Controller::getCoordinate(float y, float x)
 {
     image_y = y;
     image_x = x;
+    std::cout<<"the coordinate received in class is: x = "<<image_x<<" y = "<<image_y<<std::endl;
 }
+
+
 
