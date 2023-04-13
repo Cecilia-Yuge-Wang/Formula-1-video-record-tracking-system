@@ -110,6 +110,8 @@ int CNN::nmsHandle(std::vector<TargetBox> &tmpBoxes,
     return 0;
 }
 
+
+
 //检测类别分数处理
 int CNN::getCategory(const float *values, int index, int &category, float &score)
 {
@@ -181,7 +183,7 @@ int CNN::predHandle(const ncnn::Mat *out, std::vector<TargetBox> &dstBoxes,
         } 
     }
     return 0;
-}std::thread t1([&](){CNN::rectangleThread(cvImg, boxes, class_names);});
+}
 
 
 int CNN::detection(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, const float thresh)
@@ -222,8 +224,68 @@ int CNN::detection(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, const
     return 0;
 }
 
+//veideo capture thread
+void CNN::processThread(cv::VideoCapture cap) {
+    //cv::Mat cvImg;
+    while (true) {
+        cap >> srcImg;  // 从摄像头读取图像
+        if (srcImg.empty()) {
+            std::cerr << "Failed to capture frame." << std::endl;
+            break;
+        }
+        // 在这里对读取的图像进行处理
+      //  cv::imshow("Camera", cvImg);
+     //   cv::waitKey(1);
+    }
+}
+
+
+
+/*void CNN::rectangle(/*const cv::Mat cvImg, std::vector<TargetBox>& boxes, const char* class_names[]){
+   
+   //cv::Mat cvImg = srcImg;//
+   
+    for (int i = 0; i < boxes.size(); i++) {
+        std::cout << boxes[i].x1 << " " << boxes[i].y1 << " " << boxes[i].x2 << " " << boxes[i].y2
+            << " " << boxes[i].score << " " << boxes[i].cate << std::endl;
+
+        char text[256];
+        sprintf(text, "%s %.1f%%", class_names[boxes[i].cate], boxes[i].score * 100);
+
+        int baseLine = 0;
+        cv::Size label_size = cv::getTextSize(text, cv::FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
+
+        int x = boxes[i].x1;
+        int y = boxes[i].y1 - label_size.height - baseLine;
+        if (y < 0)
+            y = 0;
+        if (x + label_size.width > srcImg.cols)
+            x = srcImg.cols - label_size.width;
+
+        cv::rectangle(srcImg, cv::Rect(cv::Point(x, y), cv::Size(label_size.width, label_size.height + baseLine)),
+            cv::Scalar(255, 255, 255), -1);
+
+        cv::putText(srcImg, text, cv::Point(x, y + label_size.height),
+            cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
+
+        cv::rectangle(srcImg, cv::Point(boxes[i].x1, boxes[i].y1),
+            cv::Point(boxes[i].x2, boxes[i].y2), cv::Scalar(255, 255, 0), 2, 2, 0);
+
+
+        cv::Point center((boxes[i].x2 - boxes[i].x1) / 2 + boxes[i].x1, (boxes[i].y2 - boxes[i].y1) / 2 + boxes[i].y1);
+          cv::circle(srcImg, center, 5, cv::Scalar(0, 255, 0), -1);
+        
+	rx = static_cast<int>((boxes[i].x2 - boxes[i].x1) / 2 + boxes[i].x1);
+	//std::cout<<"x1="<<rx;
+	ry = static_cast<int>((boxes[i].y2 - boxes[i].y1) / 2 + boxes[i].y1);
+    }
+        //return rx, ry;
+
+}*/
+
 void CNN::rectangle(const cv::Mat cvImg, std::vector<TargetBox>& boxes, const char* class_names[]){
    
+  
    
     for (int i = 0; i < boxes.size(); i++) {
         std::cout << boxes[i].x1 << " " << boxes[i].y1 << " " << boxes[i].x2 << " " << boxes[i].y2
@@ -262,8 +324,6 @@ void CNN::rectangle(const cv::Mat cvImg, std::vector<TargetBox>& boxes, const ch
         //return rx, ry;
 
 }
-
-
 
 
 

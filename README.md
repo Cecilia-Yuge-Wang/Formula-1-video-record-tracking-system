@@ -1,24 +1,30 @@
 # Formula 1 video-record tracking system
 This is the Formula 1 video-record tracking system project of team 22, ENG5220: Real Time Embedded Programming (2022-23) of University of Glasgow. 
 ## Contents
-- [Background](#background)
-- [Contributor](#contributor)
-- [Features](#features)
-- [Install & Guidance](#install--guidance)
-- [Task list]()
-- WIP
-- [Train](#train-your-own-model)
+- [Formula 1 video-record tracking system](#formula-1-video-record-tracking-system)
+  - [Contents](#contents)
+  - [Background](#background)
+  - [Contributor](#contributor)
+  - [Features](#features)
+  - [Install \& Guidance](#install--guidance)
+    - [OpenCV Installation](#opencv-installation)
+    - [WiringPi Installation](#wiringpi-installation)
+  - [Train Your Own Model](#train-your-own-model)
+    - [1.Make Dataset](#1make-dataset)
+    - [2.Train](#2train)
+- [Reference](#reference)
 ## Background
 In Formula-1 match, it is always a challenge to keep a steady track on the target for a photographer holding his camera by hand. This project develops a system installed on ground or drones to tracking the cars with the help of raspberry, and the servo motors. This can also be used on other object tracking situation, like rocket launching record.<br>
 In this project, a Raspberry 4B will be used as main control unit. C++ is mainly used in this project.
 ## Contributor
 This project's development thanks to these contributors<br>  
-|Name|ID|
-|------|------|
-|[Haihang Xia](https://github.com/Haihang-Xia)| *2743062X*|<br>
-|[Yuge Wang](https://github.com/Cecilia-Yuge-Wang) |*2809017W*|<br>
-|[Minghao Xuan](https://github.com/Ranger5120) |*2782500X*|<br>
-|[Chengjia Yu](https://github.com/CHENGJIA-YU)|*2780667Y*|<br>
+|Name|ID|Module|
+|------|------|-------|
+|[Haihang Xia](https://github.com/Haihang-Xia)| *2743062X*| Detect|<br>
+|[Yuge Wang](https://github.com/Cecilia-Yuge-Wang) |*2809017W*| Detect|<br>
+|[Minghao Xuan](https://github.com/Ranger5120) |*2782500X*| Control|<br>
+|[Chengjia Yu](https://github.com/CHENGJIA-YU)|*2780667Y*| Control|<br>
+
 ## Features
 This system includes three parts. A camera installed on the platform driven by two motors is used to capture the video and send it back to raspberry. The raspberry deals with the tracking algorithm and gives instruction to the servo motors, to achieve the tracking process.<br>
 <br>
