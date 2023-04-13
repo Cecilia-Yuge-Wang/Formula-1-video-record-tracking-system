@@ -34,7 +34,7 @@ void Controller::ServoControl()
                 Vertical.antiClockRotate();         //up
             }
     
-        else if(image_x>880)
+        if(image_x>880)
             {
                 Horizontal.antiClockRotate();    //right
             }
