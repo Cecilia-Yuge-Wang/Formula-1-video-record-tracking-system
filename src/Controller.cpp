@@ -1,13 +1,14 @@
 #include"../Formula-1-video-record-tracking-system/src/Controller.h"
 #include"../Formula-1-video-record-tracking-system/src/motor.h"
 #include<thread>
+#include<iostream>
 #include<time.h>
 
 
 
 Controller::Controller(int motor1,int motor2):Vertical(motor1),Horizontal(motor2)
 {
-
+        std::cout<<"pantilt is initialized"<<std::endl;
 };
 
 void Controller::controlThread()
