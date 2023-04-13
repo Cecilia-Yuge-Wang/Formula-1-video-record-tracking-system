@@ -17,7 +17,7 @@ public:
     void getCoordinate(float y, float x);
     void ServoControl();
     void controlThread();
-    
+    void printCoordinate();
 };
 
 #endif

@@ -1,5 +1,5 @@
-#include"../Formula-1-video-record-tracking-system/src/Controller.h"
-#include"../Formula-1-video-record-tracking-system/src/motor.h"
+#include"Controller.h"
+#include"motor.h"
 #include<thread>
 #include<iostream>
 #include<time.h>
@@ -43,7 +43,7 @@ void Controller::ServoControl()
                 Horizontal.clockwiseRotate();    //left
             }
     
-    //std::this_thread::sleep_for(std::chrono::milliseconds(10));   
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));   
 }
 
 //this function is a callback function to get the coordiante of the object central from frameprocess class.
@@ -51,8 +51,12 @@ void Controller::getCoordinate(float y, float x)
 {
     image_y = y;
     image_x = x;
-    std::cout<<"the coordinate received in class is: x = "<<image_x<<" y = "<<image_y<<std::endl;
+    //std::cout<<"the coordinate received in class is: x = "<<image_x<<" y = "<<image_y<<std::endl;
 }
 
+void Controller::printCoordinate()
+{
+    std::cout<<"x = " <<image_x<<", y = "<<image_y<<std::endl;
+}
 
 
