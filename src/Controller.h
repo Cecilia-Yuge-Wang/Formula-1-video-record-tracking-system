@@ -15,9 +15,10 @@ private:
 public:
     Controller(int motor1, int motor2);
     void getCoordinate(float y, float x);
-    void ServoControl();
+    void ServoControl(float image_y, float image_x);
     void controlThread();
     void printCoordinate();
+    void control();
 };
 
 #endif
