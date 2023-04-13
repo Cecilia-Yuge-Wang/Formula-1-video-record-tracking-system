@@ -1,7 +1,6 @@
 #include "frameprocess.h"
 #include <thread>
 
-
 int main()
 {   
     static const char* class_names[] = {"Ferrari"};
@@ -39,11 +38,11 @@ int main()
 	
         cv::imshow("Camera", cvImg); // 显示摄像头画面
         if (cv::waitKey(1) == 27) { // 按下Esc键退出循环
+            api.g_quit = true;
+            t1.detach();
             break;
         }
     }
-
-    t1.join();
     
     return 0;
 }

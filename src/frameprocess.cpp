@@ -224,18 +224,17 @@ int CNN::detection(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, const
     return 0;
 }
 
+
+
 //veideo capture thread
-void CNN::processThread(cv::VideoCapture cap) {
-    //cv::Mat cvImg;
-    while (true) {
+void CNN::processThread(cv::VideoCapture& cap) {
+
+    while (!g_quit) {
         cap >> srcImg;  // 从摄像头读取图像
         if (srcImg.empty()) {
             std::cerr << "Failed to capture frame." << std::endl;
             break;
         }
-        // 在这里对读取的图像进行处理
-      //  cv::imshow("Camera", cvImg);
-     //   cv::waitKey(1);
     }
 }
 
