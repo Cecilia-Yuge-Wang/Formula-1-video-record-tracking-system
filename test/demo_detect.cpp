@@ -1,8 +1,6 @@
 #include "frameprocess.h"
 #include "Controller.h"
 #include <thread>
-#include<iostream>
-
 
 int main()
 {   
@@ -49,11 +47,11 @@ int main()
 	
         cv::imshow("Camera", cvImg); // ��ʾ����ͷ����
         if (cv::waitKey(1) == 27) { // ����Esc���˳�ѭ��
+            api.g_quit = true;
+            t1.detach();
             break;
         }
     }
-
-    t1.join();
     
     return 0;
 }
