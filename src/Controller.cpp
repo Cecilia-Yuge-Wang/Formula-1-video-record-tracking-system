@@ -22,9 +22,7 @@ void Controller::controlThread()
 
 void Controller::ServoControl()
 {
-    char running = true;
-    while (running)
-    {
+    //
         if(image_y>520)
             {
                 Vertical.clockwiseRotate();         //down
@@ -44,8 +42,8 @@ void Controller::ServoControl()
             {
                 Horizontal.clockwiseRotate();    //left
             }
-    }
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));   
+    
+    //std::this_thread::sleep_for(std::chrono::milliseconds(10));   
 }
 
 //this function is a callback function to get the coordiante of the object central from frameprocess class.
