@@ -38,10 +38,11 @@ int main()
         api.rectangle(cvImg, boxes, class_names);
 
         int x = api.getX();
-    	int y = api.getY();
-    	std::cout<<"x = "<< x << std::endl;
+    	  int y = api.getY();
+    	  std::cout<<"x = "<< x << std::endl;
         controller.getCoordinate(y, x);
         controller.controlThread();
+
 
 
 	
