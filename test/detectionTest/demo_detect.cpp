@@ -1,13 +1,8 @@
 #include "frameprocess.h"
-#include "Controller.h"
 #include <thread>
-#define motor1  27//ÊñπÂêëÊú∫
-#define	motor2	17//È´ò‰ΩéÊú∫
 
 int main()
 {   
-    Controller controller(motor1,motor2);
-
     static const char* class_names[] = {"Ferrari"};
     
     CNN api;
@@ -25,7 +20,7 @@ int main()
     
     cv::Mat cvImg;
     while (true){
-        cap >> cvImg; // ÈîüÊñ§Êã∑ÂèñÈîüÊñ§Êã∑ÈîüÊñ§Êã∑Â§¥ÊØè‰∏ÄÂ∏ß
+        cap >> cvImg; // ∂¡»°…„œÒÕ∑√ø“ª÷°
         if (cvImg.empty()) {
             std::cerr << "Failed to capture frame." << std::endl;
             break;
@@ -37,16 +32,12 @@ int main()
         
         api.rectangle(cvImg, boxes, class_names);
 
-        int rx = api.rx;
-    	int ry = api.ry;
-        std::cout<<"x = "<<rx <<" y = "<<ry<< std::endl;    
-
-        controller.getCoordinate(api.ry, api.rx);
-    	
-
-
-        cv::imshow("Camera", cvImg); // ÊòæÁ§∫ÊëÑÂÉèÂ§¥ÁîªÈù¢
-        if (cv::waitKey(1) == 27) { // Êåâ‰∏ãEscÈîÆÈÄÄÂá∫Âæ™ÁéØ
+        int x = api.getX();
+    	int y = api.getY();
+    	std::cout<<"x = "<< x << std::endl;
+	
+        cv::imshow("Camera", cvImg); // œ‘ æ…„œÒÕ∑ª≠√Ê
+        if (cv::waitKey(1) == 27) { // ∞¥œ¬Escº¸ÕÀ≥ˆ—≠ª∑
             api.g_quit = true;
             t1.detach();
             break;

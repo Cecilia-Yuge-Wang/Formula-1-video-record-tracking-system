@@ -40,6 +40,9 @@ private:
     int numThreads;
     int numCategory;
     int inputWidth, inputHeight;
+    
+    int rx;
+    int ry;
 
     float nmsThresh;
 
@@ -51,8 +54,7 @@ private:
 public:
     CNN();
     ~CNN();
-    int rx;
-    int ry;
+    
     cv::Mat srcImg;
     std::atomic<bool> g_quit{false};
     
@@ -61,6 +63,9 @@ public:
                   const float thresh = 0.5);
     void processThread(cv::VideoCapture& cap); 
     void rectangle(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, const char* class_names[]);//{ return rx, ry; };
+    
+    int getX() const { return rx; }
+    int getY() const { return ry; }
     //void rectangleThread(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, const char* class_names[]);
     //void rectangleT(const cv::Mat cvImg, std::vector<TargetBox>& boxes, const char* class_names[]);
 };
