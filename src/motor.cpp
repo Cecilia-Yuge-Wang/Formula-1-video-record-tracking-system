@@ -11,16 +11,17 @@ motor::motor(int i)
 
 void motor::clockwiseRotate()
 {
-    currentAngle += 4;
-    if(currentAngle > 180)
+    currentAngle += 4;// turning 4 degree in one time
+
+    if(currentAngle > 180) // check the current angle value, if it is beyond the maximum angle of the motor, then set to the maximum value
            {
             currentAngle = 180;
            }
             
-            softPwmWrite(pin, (int)(currentAngle / 180.0 * 20.0));
+            softPwmWrite(pin, (int)(currentAngle / 180.0 * 20.0)); //turn the angle into the pwm value, and control the motor.
 }
 
-void motor::antiClockRotate()
+void motor::antiClockRotate()//similar with the upside function
 {
     currentAngle -= 4;
             if(currentAngle < 1)
