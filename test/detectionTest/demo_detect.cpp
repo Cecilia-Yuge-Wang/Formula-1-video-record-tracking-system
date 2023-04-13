@@ -1,6 +1,8 @@
 #include "frameprocess.h"
 #include "Controller.h"
 #include <thread>
+#define motor1  27//方向机
+#define	motor2	17//高低机
 
 int main()
 {   
