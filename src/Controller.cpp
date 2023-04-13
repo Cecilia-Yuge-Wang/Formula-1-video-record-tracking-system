@@ -22,7 +22,8 @@ void Controller::controlThread()
 
 void Controller::ServoControl()
 {
-    //
+    while (true)
+    {
         if(image_y>520)
             {
                 Vertical.clockwiseRotate();         //down
@@ -42,6 +43,7 @@ void Controller::ServoControl()
             {
                 Horizontal.clockwiseRotate();    //left
             }
+    }
     
     std::this_thread::sleep_for(std::chrono::milliseconds(10));   
 }
