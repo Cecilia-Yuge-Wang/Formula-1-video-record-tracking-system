@@ -23,7 +23,7 @@ int main()
     
     cv::Mat cvImg;
     while (true){
-        cap >> cvImg; // ��ȡ����ͷÿһ֡
+        cap >> cvImg; // 锟斤拷取锟斤拷锟斤拷头每一帧
         if (cvImg.empty()) {
             std::cerr << "Failed to capture frame." << std::endl;
             break;
@@ -45,8 +45,9 @@ int main()
 
 
 	
-        cv::imshow("Camera", cvImg); // ��ʾ����ͷ����
-        if (cv::waitKey(1) == 27) { // ����Esc���˳�ѭ��
+
+        cv::imshow("Camera", cvImg); // 显示摄像头画面
+        if (cv::waitKey(1) == 27) { // 按下Esc键退出循环
             api.g_quit = true;
             t1.detach();
             break;
