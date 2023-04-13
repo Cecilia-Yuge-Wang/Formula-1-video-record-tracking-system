@@ -42,7 +42,9 @@ int main()
     	int y = api.getY();
     	std::cout<<"x = "<< x << std::endl;
         controller.getCoordinate(y, x);
+
         controller.printCoordinate();
+
 	
         cv::imshow("Camera", cvImg); // ��ʾ����ͷ����
         if (cv::waitKey(1) == 27) { // ����Esc���˳�ѭ��
