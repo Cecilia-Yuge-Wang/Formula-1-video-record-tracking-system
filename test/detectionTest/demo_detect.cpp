@@ -21,6 +21,7 @@ int main()
         return -1;
     }
 
+    controller.controlThread();
     std::thread t1(&CNN::processThread, &api, std::ref(cap));
     
     cv::Mat cvImg;
@@ -41,10 +42,6 @@ int main()
     	int y = api.getY();
     	std::cout<<"x = "<< x << std::endl;
         controller.getCoordinate(y, x);
-        // controller.controlThread();
-
-
-
 	
         cv::imshow("Camera", cvImg); // ��ʾ����ͷ����
         if (cv::waitKey(1) == 27) { // ����Esc���˳�ѭ��
