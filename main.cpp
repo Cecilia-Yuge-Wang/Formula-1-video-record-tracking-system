@@ -1,42 +1,32 @@
 #include "frameprocess.h"
-#include<wiringPi.h>
-#include<softPwm.h>
-#include<iostream>
+#include <thread>
 #include "Controller.h"
-
-#define motor1 17 // Vertical
-#define motor2 27 // Horizontal
-
+#define motor1 13 // Vertical
+#define motor2 18 // Horizontal
 
 
 int main()
 {   
-
-    Controller Controller(motor1,motor2);
-    
+    Controller controller(motor1,motor2);
     static const char* class_names[] = {"Ferrari"};
     
     CNN api;
 
-    api.loadModel("./model/F1F1.param",
-                  "./model/F1F1.bin");
+    api.loadModel("./model/F1F1-opt.param",
+                  "./model/F1F1-opt.bin");
    
-    
     cv::VideoCapture cap(0);
-    //cv::Mat cvImg = cv::imread("test.jpg"); 
     if (!cap.isOpened()) {
         std::cerr << "Failed to open camera." << std::endl;
         return -1;
     }
 
+    controller.controlThread();
+    std::thread t1(&CNN::processThread, &api, std::ref(cap));
     
-    cv::Mat cvImg; 
-    
-    int Deter_x = 0;
-    
+    cv::Mat cvImg;
     while (true){
-        
-        cap.read(cvImg); // ¶ÁÈ¡ÉãÏñÍ·Ã¿Ò»Ö¡
+        cap >> cvImg; 
         if (cvImg.empty()) {
             std::cerr << "Failed to capture frame." << std::endl;
             break;
@@ -47,31 +37,22 @@ int main()
         api.detection(cvImg, boxes);
         
         api.rectangle(cvImg, boxes, class_names);
-        
-       
-    	
+
+        int x = api.getX();
+    	int y = api.getY();
+    	std::cout<<"x = "<< x << std::endl;
+        controller.getCoordinate(y, x);
+
+        controller.printCoordinate();
+
 	
-        cv::imshow("Camera", cvImg); // ÏÔÊ¾ÉãÏñÍ·»­Ãæ
-        if (cv::waitKey(1) == 27) { // °´ÏÂEsc¼üÍË³öÑ­»·
+        cv::imshow("Camera", cvImg); 
+        if (cv::waitKey(1) == 27) { 
+            api.g_quit = true;
+            t1.detach();
             break;
         }
-        //cv::imwrite("output.png", cvImg);
-    
-        int rx = api.rx;
-    	int ry = api.ry;
-    
-        
-        
-        if (Deter_x != rx){
-            Controller.ServoControl(ry,rx);
-        }
-        
-        Deter_x = rx;
-        
-
     }
-
-    
     
     return 0;
 }
