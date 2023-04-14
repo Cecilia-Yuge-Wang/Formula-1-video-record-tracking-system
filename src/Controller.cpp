@@ -17,18 +17,18 @@ Controller::Controller(int motor1,int motor2):Vertical(motor1),Horizontal(motor2
 
 void Controller::ServoControl(float image_y,float image_x)
 {
-    if(image_y>520){
+    if(image_y>420){
         Vertical.clockwiseRotate();         //down
         //delay(100);
-    }else if(image_y<200){
+    }else if(image_y<300){
         Vertical.antiClockRotate();         //up
         //delay(100);
     }
     
-    if(image_x>880){
+    if(image_x>680){
         Horizontal.antiClockRotate();       //right
         //delay(100);
-    }else if(image_x<400){
+    }else if(image_x<600){
         Horizontal.clockwiseRotate();       //left
         //delay(100);
     }
