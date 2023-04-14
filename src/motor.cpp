@@ -1,12 +1,14 @@
 #include<wiringPi.h>
-#include<softPwm.h>
 #include "motor.h"
 
 motor::motor(int i)
 {
     pin = i;
-    wiringPiSetupSys();
-    softPwmCreate(pin, 0, 100);
+    wiringPiSetupGpio();
+    pinMode(pin, PWM_OUTPUT);
+    pwmSetMode(PWM_MODE_MS);
+    pwmSetRange(200);
+    pwmSetClock(1920);
 }
 
 void motor::clockwiseRotate()
@@ -18,7 +20,7 @@ void motor::clockwiseRotate()
             currentAngle = 180;
            }
             
-            softPwmWrite(pin, (int)(currentAngle / 180.0 * 20.0)); //turn the angle into the pwm value, and control the motor.
+            pwmWrite(pin, (int)(currentAngle / 180.0 * 40)); //turn the angle into the pwm value, and control the motor.
 }
 
 void motor::antiClockRotate()//similar with the upside function
@@ -28,17 +30,5 @@ void motor::antiClockRotate()//similar with the upside function
             {
                 currentAngle = 1;
             }
-            softPwmWrite(pin, (int)(currentAngle / 180.0 * 20.0));
+            pwmWrite(pin, (int)(currentAngle / 180.0 * 40));
 }
-
-void motor::Rotate(float angle)
-{
-    if (angle > 180) {
-        angle = 180;
-    }
-    else if (angle < 1) {
-        angle = 1;
-    }
-    softPwmWrite(pin, (int)(angle * 10 / 180 + 2.5));
-}
-
