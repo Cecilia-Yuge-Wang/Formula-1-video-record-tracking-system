@@ -238,6 +238,14 @@ void CNN::processThread(cv::VideoCapture& cap) {
     }
 }
 
+void CNN::showThread(cv::Mat& img) {
+    while (!g_quit) {
+        cv::imshow("Camera", img);
+        if (cv::waitKey(1) == 27) {
+            break;
+        }
+    }
+}
 
 
 /*void CNN::rectangle(/*const cv::Mat cvImg, std::vector<TargetBox>& boxes, const char* class_names[]){

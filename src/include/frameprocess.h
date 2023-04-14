@@ -63,6 +63,7 @@ public:
                   const float thresh = 0.5);
     void processThread(cv::VideoCapture& cap); 
     void rectangle(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, const char* class_names[]);//{ return rx, ry; };
+    void showThread(cv::Mat& img);
     
     int getX() const { return rx; }
     int getY() const { return ry; }

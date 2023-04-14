@@ -1,9 +1,5 @@
 #include "frameprocess.h"
 #include <thread>
-#include "Controller.h"
-#define motor1 17 // Vertical
-#define motor2 27 // Horizontal
-
 
 int main()
 {   
@@ -25,8 +21,15 @@ int main()
     std::thread t1(&CNN::processThread, &api, std::ref(cap));
     
     cv::Mat cvImg;
+    cap >> cvImg;
+    if (cvImg.empty()) {
+        std::cerr << "Failed to capture frame." << std::endl;
+        return -1;
+    }
+     std::thread t2(&CNN::showThread, &api, std::ref(cvImg));
+    
     while (true){
-        cap >> cvImg; // ÔøΩÔøΩ»°ÔøΩÔøΩÔøΩÔøΩÕ∑√ø“ª÷°
+        cap >> cvImg; // ∂¡»°…„œÒÕ∑√ø“ª÷°
         if (cvImg.empty()) {
             std::cerr << "Failed to capture frame." << std::endl;
             break;
@@ -41,15 +44,14 @@ int main()
         int x = api.getX();
     	int y = api.getY();
     	std::cout<<"x = "<< x << std::endl;
-        controller.getCoordinate(y, x);
-
+    	
+	controller.getCoordinate(y, x);
         controller.printCoordinate();
-
-	
-        cv::imshow("Camera", cvImg); // ÔøΩÔøΩ æÔøΩÔøΩÔøΩÔøΩÕ∑ÔøΩÔøΩÔøΩÔøΩ
-        if (cv::waitKey(1) == 27) { // ÔøΩÔøΩÔøΩÔøΩEscÔøΩÔøΩÔøΩÀ≥ÔøΩ—≠ÔøΩÔøΩ
+        //cv::imshow("Camera", cvImg); // œ‘ æ…„œÒÕ∑ª≠√Ê
+        if (cv::waitKey(1) == 27) { // ∞¥œ¬Escº¸ÕÀ≥ˆ—≠ª∑
             api.g_quit = true;
             t1.detach();
+            t2.detach();
             break;
         }
     }
