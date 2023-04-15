@@ -8,25 +8,7 @@ from PIL import ImageGrab
 
 app = Flask(__name__)
 
-def get_window_position(window_name):
-    d = display.Display()
-    root = d.screen().root
-    windowID = None
 
-    for window in root.get_full_property(d.intern_atom('_NET_CLIENT_LIST'), d.intern_atom('WINDOW')).value:
-        window_obj = d.create_resource_object('window', window)
-        name = window_obj.get_full_property(d.intern_atom('_NET_WM_NAME'), d.intern_atom('UTF8_STRING'))
-        if name and window_name in name.value.decode('utf-8'):
-            windowID = window
-            break
-
-    if windowID:
-        window_obj = d.create_resource_object('window', windowID)
-        geometry = window_obj.get_geometry()
-        return geometry.x, geometry.y, geometry.width, geometry.height
-    else:
-        return None
-        
 def get_window_geometry(window_name):
     try:
         output = subprocess.check_output(['xwininfo', '-name', window_name])
