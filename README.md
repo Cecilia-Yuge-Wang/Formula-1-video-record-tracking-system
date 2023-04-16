@@ -290,7 +290,12 @@ Calculate map evaluation:
 python evaluation.py --data f1.data --weights modelzoo/f1model.pth
 ```
 
+# Versions
+## 1.0
+- No longer using color recognition. The first version of CNN neural network was used for image recognition. 
+- Initial implementation of project functions.
 
+## 2.0
 
 
 # Reference
