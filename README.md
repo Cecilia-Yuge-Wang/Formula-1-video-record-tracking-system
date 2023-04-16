@@ -1,24 +1,33 @@
 # Formula 1 video-record tracking system
 This is the Formula 1 video-record tracking system project of team 22, ENG5220: Real Time Embedded Programming (2022-23) of University of Glasgow. 
 ## Contents
-- [Background](#background)
-- [Contributor](#contributor)
-- [Features](#features)
-- [Install & Guidance](#install--guidance)
-- [Task list]()
-- WIP
-- [Train](#train-your-own-model)
+- [Formula 1 video-record tracking system](#formula-1-video-record-tracking-system)
+  - [Contents](#contents)
+  - [Background](#background)
+  - [Contributor](#contributor)
+  - [Features](#features)
+  - [Methodology](#methodology)
+    - [Detection](#detection)
+  - [Install \& Guidance](#install--guidance)
+    - [OpenCV Installation](#opencv-installation)
+    - [WiringPi Installation](#wiringpi-installation)
+    - [Video Streaming Installation](#video-streaming-installation)
+  - [Train Your Own Model](#train-your-own-model)
+    - [1.Make Dataset](#1make-dataset)
+    - [2.Train](#2train)
+- [Reference](#reference)
 ## Background
 In Formula-1 match, it is always a challenge to keep a steady track on the target for a photographer holding his camera by hand. This project develops a system installed on ground or drones to tracking the cars with the help of raspberry, and the servo motors. This can also be used on other object tracking situation, like rocket launching record.<br>
 In this project, a Raspberry 4B will be used as main control unit. C++ is mainly used in this project.
 ## Contributor
 This project's development thanks to these contributors<br>  
-|Name|ID|
-|------|------|
-|[Haihang Xia](https://github.com/Haihang-Xia)| *2743062X*|<br>
-|[Yuge Wang](https://github.com/Cecilia-Yuge-Wang) |*2809017W*|<br>
-|[Minghao Xuan](https://github.com/Ranger5120) |*2782500X*|<br>
-|[Chengjia Yu](https://github.com/CHENGJIA-YU)|*2780667Y*|<br>
+|Name|ID|Module|
+|------|------|-------|
+|[Haihang Xia](https://github.com/Haihang-Xia)| *2743062X*| Detect|<br>
+|[Yuge Wang](https://github.com/Cecilia-Yuge-Wang) |*2809017W*| Detect|<br>
+|[Minghao Xuan](https://github.com/Ranger5120) |*2782500X*| Control|<br>
+|[Chengjia Yu](https://github.com/CHENGJIA-YU)|*2780667Y*| Control|<br>
+
 ## Features
 This system includes three parts. A camera installed on the platform driven by two motors is used to capture the video and send it back to raspberry. The raspberry deals with the tracking algorithm and gives instruction to the servo motors, to achieve the tracking process.<br>
 <br>
@@ -27,7 +36,22 @@ The system can switch between manual target selection and automatic target selec
 
 >**WIP: Xbox Controller controlling**<br>
 >This is a work in progress planning. We hope to use an Xbox controller (Playstation, NS controller and etc...) to control the camera platform rotating and lock on in manual mode. However, this is only a WIP planning. **It may be cancelled due to the final result and timetable.**<br>
+## Methodology
 
+### Detection
+Regarding the real-time monitoring of F1 racing cars, we initially adopted an edge detection approach. At first, we used the Canny function in OpenCV for edge detection. We read each frame of the image from the camera in real-time, then processed it through grayscale conversion, Gaussian blur, and other filters, before using the Canny function for edge detection. However, the results were very unsatisfactory, as the image could only detect partial lines when there was too much noise reduction, and the image became very cluttered and difficult to detect the desired target when there was too little noise reduction. Moreover, there was a significant amount of environmental interference. This is illustrated in the figure.
+![Edge Detection](./Img/edgedetect.png)
+Afterwards, we adopted another method, color detection. Similarly, after processing with some filters, we used HSV quantization to select the desired color range, which was then used for detection. This method achieved certain results and was able to detect the desired race car model effectively. However, it still had significant drawbacks.<br>
+
+Firstly, the HSV values of an object under different lighting conditions can vary significantly in an image. Although a console can be set up to constantly adjust the filtering HSV values, this method is inefficient and cumbersome. Secondly, when shooting different race cars, the paint colors of each car may differ, requiring constant changes to the HSV values. Moreover, typically, a car has large areas of the same color, but in some cases, the paint job may consist of many small color blocks of different colors, which would cause the HSV-based color detection to fail. Therefore, using HSV values for color detection can work in simulated environments to recognize objects, but it is not ideal for practical applications.This is illustrated in the figure.
+![Color Detection](./Img/colordetect.png)
+
+Subsequently, we started exploring alternative methods beyond traditional image processing. First, we came across the conventional method of Haar cascades. Haar cascades are a machine learning-based object detection technique that uses features derived from image intensities to identify objects. Specifically, it involves training a classifier on a set of positive and negative images to detect the object of interest. However, Haar cascades have several drawbacks. For instance, they are struggle to detect objects under varying lighting conditions or occlusions. In addition, Haar cascades can only be trained for a specific type of race car, which limits their applicability to other types of cars and reduces their overall generalizability.<br>
+
+Therefore, we sought to implement object detection through training neural network models. Neural networks have several advantages over Haar cascades. For instance, they can learn more complex features automatically, can handle large variations in object appearance, and are generally more accurate. Additionally, deep neural networks, such as convolutional neural networks (CNNs), have become the state-of-the-art in computer vision tasks, including object detection. By leveraging pre-trained CNN models, we were able to achieve high levels of accuracy in detecting F1 cars in real-time.<br>
+
+Incorporating neural network models into the image recognition process provides several advantages. Firstly, neural network models are generally more accurate and reliable than traditional methods. Secondly, they can avoid recognition interference caused by different environmental factors. Neural network models can be trained to recognize multiple types of objects simultaneously, thereby increasing the model's generalizability. When photographing race cars, a neural network model can be trained to recognize each type of car on the track, allowing for the identification of all cars in a race and enabling the selection of specific cars for photography.<br>
+![CNN](./Img/output.png)
 ## Install & Guidance
 ### OpenCV Installation
 This project needs to use OpenCV. You need to set up the environment of OpenCV at first. The following steps will guide you how to make it. in this project, the openCV's version we use is 4.7.0. The Raspberry 4B is installed with system of Raspberry Pi OS with desktop (32-bit)<br>
@@ -77,6 +101,23 @@ to check library information, and use
 gpio readall
 ```
 to draw a table of all the pinout.
+<br>
+
+### Video Streaming Installation
+In this project, Flask would be used for the real-time video streaming. It captures the specific window called 'Camera' generated by main.cpp on the Linux system and streams it to the web broweser.<br>
+1. Install required dependencies.
+```
+pip install opencv-python
+pip install Pillow
+pip install numpy
+pip install Flask
+```
+2. Run the web server
+```
+python Server.py
+```
+Then visit the IP address given by the command line. All of the devices with the same wifi could visit it.
+<br>
 
 ## Train Your Own Model
 ### 1.Make Dataset
@@ -248,9 +289,6 @@ Calculate map evaluation:
 ```
 python evaluation.py --data f1.data --weights modelzoo/f1model.pth
 ```
-
-
-
 
 # Reference
 https://github.com/dog-qiuqiu/Yolo-FastestV2

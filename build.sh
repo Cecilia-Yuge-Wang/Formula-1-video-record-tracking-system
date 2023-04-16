@@ -1,1 +1,1 @@
-g++ -g -o demo demo.cpp src/frameprocess.cpp src/motor.cpp src/Controller.cpp -I src/include -I include/ncnn lib/libncnn.a `pkg-config --libs --cflags opencv` -fopenmp -lwiringPi
+g++ -g -o demo main.cpp src/frameprocess.cpp src/motor.cpp src/Controller.cpp -I src -I src/include -I include/ncnn lib/libncnn1.a `pkg-config --libs --cflags opencv` -fopenmp -lwiringPi

@@ -5,6 +5,10 @@
 
 #include <vector>
 #include <opencv2/opencv.hpp>
+#include <atomic>
+
+#include <fstream>
+#include <string>
 
 class TargetBox
 {
@@ -39,6 +43,10 @@ private:
     int numThreads;
     int numCategory;
     int inputWidth, inputHeight;
+    
+    int rx;
+    int ry;
+    static const char** class_names;
 
     float nmsThresh;
 
@@ -50,14 +58,20 @@ private:
 public:
     CNN();
     ~CNN();
-    int rx;
-    int ry;
-
+    
+    cv::Mat srcImg;
+    std::atomic<bool> g_quit{false};
+    
+    void read_class_names(const char* filename);
+    
     int loadModel(const char* paramPath, const char* binPath);
     int detection(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, 
                   const float thresh = 0.5);
-    void rectangle(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, const char* class_names[]);//{ return rx, ry; };
-    //void rectangleThread(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, const char* class_names[]);
-    //void rectangleT(const cv::Mat cvImg, std::vector<TargetBox>& boxes, const char* class_names[]);
+    void processThread(cv::VideoCapture& cap); 
+    void rectangle(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes);
+    
+    int getX() const { return rx; }
+    int getY() const { return ry; }
+    
 };
 #endif
