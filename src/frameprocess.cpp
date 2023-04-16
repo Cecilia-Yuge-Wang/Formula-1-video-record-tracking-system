@@ -275,15 +275,6 @@ void CNN::processThread(cv::VideoCapture& cap) {
     }
 }
 
-//Output the vedio and create a new window
-void CNN::showThread(cv::Mat& img) {
-    while (!g_quit) {
-        cv::imshow("Camera", img);
-        if (cv::waitKey(1) == 27) {
-            break;
-        }
-    }
-}
 
 
 //Draw rectangle and print imformation in vedio
