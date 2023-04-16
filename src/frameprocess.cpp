@@ -4,31 +4,38 @@
 #include <thread>
 
 
-//模型的参数配置
+//Parameter configuration of the model
+
+const char** CNN::class_names = nullptr;
+
 CNN::CNN()
 {   
     printf("Creat frameprocess ...\n");
-    //输出节点数
+    //Number of output point
     numOutput = 2;
-    //推理线程数
+    
+    //Number of Thread
     numThreads = 4;
+    
     //anchor num
     numAnchor = 3;
-    //类别数目
+    
+    //Category number
     numCategory = 1;
-    //NMS阈值
+   
+    //NMS Thresh
     nmsThresh = 0.25;
 
-    //模型输入尺寸大小
+    //Size of Model Input
     inputWidth = 352;
     inputHeight = 352;
 
-    //模型输入输出节点名称
+    //Name of Model input point 
     inputName = "input.1";
     outputName1 = "794"; //22x22
     outputName2 = "796"; //11x11
 
-    //打印初始化相关信息
+    //Print initialization Information
     printf("numThreads:%d\n", numThreads);
     printf("inputWidth:%d inputHeight:%d\n", inputWidth, inputHeight);
 
@@ -36,14 +43,44 @@ CNN::CNN()
     std::vector<float> bias {98.65,138.84, 134.40,75.68, 155.02,213.15, 166.34,116.23, 223.98,139.03, 264.10,187.48};
 
     anchor.assign(bias.begin(), bias.end());
+    
+    class_names = new const char*[1];
+    class_names[0] = "Ferrari";
+    
 }
+
+
+
+//Load class names
+
+void CNN::read_class_names(const char* filename) {
+    std::vector<std::string> class_names_vec;
+    std::string line;
+    std::ifstream file(filename, std::ios::in);
+    if (file.is_open()) {
+        while (std::getline(file, line)) {
+            class_names_vec.push_back(line);
+        }
+        file.close();
+        // Convert vector of strings to array of char pointers
+        class_names = new const char*[class_names_vec.size()];
+        for (int i = 0; i < class_names_vec.size(); ++i) {
+            class_names[i] = class_names_vec[i].c_str();
+        }
+    }
+}
+
+
+
+
 
 CNN::~CNN()
 {
+     delete[] class_names;
     printf("Destroy frameprocess...\n");
 }
 
-//ncnn 模型加载
+//ncnn model load
 int CNN::loadModel(const char* paramPath, const char* binPath)
 {
     printf("Ncnn mode init:\n%s\n%s\n", paramPath, binPath);
@@ -75,7 +112,7 @@ bool scoreSort(TargetBox a, TargetBox b)
     return (a.score > b.score); 
 }
 
-//NMS处理
+//NMS Process
 int CNN::nmsHandle(std::vector<TargetBox> &tmpBoxes, 
                              std::vector<TargetBox> &dstBoxes)
 {
@@ -86,9 +123,9 @@ int CNN::nmsHandle(std::vector<TargetBox> &tmpBoxes,
     for (int i = 0; i < tmpBoxes.size(); i++) {
         int keep = 1;
         for (int j = 0; j < picked.size(); j++) {
-            //交集
+            //Intersections
             float inter_area = intersection_area(tmpBoxes[i], tmpBoxes[picked[j]]);
-            //并集
+            //Union
             float union_area = tmpBoxes[i].area() + tmpBoxes[picked[j]].area() - inter_area;
             float IoU = inter_area / union_area;
 
@@ -112,7 +149,7 @@ int CNN::nmsHandle(std::vector<TargetBox> &tmpBoxes,
 
 
 
-//检测类别分数处理
+//Score of category processing
 int CNN::getCategory(const float *values, int index, int &category, float &score)
 {
     float tmp = 0;
@@ -133,7 +170,7 @@ int CNN::getCategory(const float *values, int index, int &category, float &score
     return 0;
 }
 
-//特征图后处理
+//Post-processing of feature maps
 int CNN::predHandle(const ncnn::Mat *out, std::vector<TargetBox> &dstBoxes, 
                               const float scaleW, const float scaleH, const float thresh)
 {    //do result
@@ -185,7 +222,7 @@ int CNN::predHandle(const ncnn::Mat *out, std::vector<TargetBox> &dstBoxes,
     return 0;
 }
 
-
+//Detection processing
 int CNN::detection(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, const float thresh)
 {   
     dstBoxes.clear();
@@ -215,7 +252,7 @@ int CNN::detection(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, const
     ex.extract(outputName2, out[1]); //11x11
 
     std::vector<TargetBox> tmpBoxes;
-    //特征图后处理
+    //Post-processing
     predHandle(out, tmpBoxes, scaleW, scaleH, thresh);
 
     //NMS
@@ -230,7 +267,7 @@ int CNN::detection(const cv::Mat srcImg, std::vector<TargetBox> &dstBoxes, const
 void CNN::processThread(cv::VideoCapture& cap) {
 
     while (!g_quit) {
-        cap >> srcImg;  // 从摄像头读取图像
+        cap >> srcImg;  // read image from webcamera
         if (srcImg.empty()) {
             std::cerr << "Failed to capture frame." << std::endl;
             break;
@@ -238,6 +275,7 @@ void CNN::processThread(cv::VideoCapture& cap) {
     }
 }
 
+//Output the vedio and create a new window
 void CNN::showThread(cv::Mat& img) {
     while (!g_quit) {
         cv::imshow("Camera", img);
@@ -248,49 +286,9 @@ void CNN::showThread(cv::Mat& img) {
 }
 
 
-/*void CNN::rectangle(/*const cv::Mat cvImg, std::vector<TargetBox>& boxes, const char* class_names[]){
-   
-   //cv::Mat cvImg = srcImg;//
-   
-    for (int i = 0; i < boxes.size(); i++) {
-        std::cout << boxes[i].x1 << " " << boxes[i].y1 << " " << boxes[i].x2 << " " << boxes[i].y2
-            << " " << boxes[i].score << " " << boxes[i].cate << std::endl;
+//Draw rectangle and print imformation in vedio
 
-        char text[256];
-        sprintf(text, "%s %.1f%%", class_names[boxes[i].cate], boxes[i].score * 100);
-
-        int baseLine = 0;
-        cv::Size label_size = cv::getTextSize(text, cv::FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
-
-        int x = boxes[i].x1;
-        int y = boxes[i].y1 - label_size.height - baseLine;
-        if (y < 0)
-            y = 0;
-        if (x + label_size.width > srcImg.cols)
-            x = srcImg.cols - label_size.width;
-
-        cv::rectangle(srcImg, cv::Rect(cv::Point(x, y), cv::Size(label_size.width, label_size.height + baseLine)),
-            cv::Scalar(255, 255, 255), -1);
-
-        cv::putText(srcImg, text, cv::Point(x, y + label_size.height),
-            cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
-
-        cv::rectangle(srcImg, cv::Point(boxes[i].x1, boxes[i].y1),
-            cv::Point(boxes[i].x2, boxes[i].y2), cv::Scalar(255, 255, 0), 2, 2, 0);
-
-
-        cv::Point center((boxes[i].x2 - boxes[i].x1) / 2 + boxes[i].x1, (boxes[i].y2 - boxes[i].y1) / 2 + boxes[i].y1);
-          cv::circle(srcImg, center, 5, cv::Scalar(0, 255, 0), -1);
-        
-	rx = static_cast<int>((boxes[i].x2 - boxes[i].x1) / 2 + boxes[i].x1);
-	//std::cout<<"x1="<<rx;
-	ry = static_cast<int>((boxes[i].y2 - boxes[i].y1) / 2 + boxes[i].y1);
-    }
-        //return rx, ry;
-
-}*/
-
-void CNN::rectangle(const cv::Mat cvImg, std::vector<TargetBox>& boxes, const char* class_names[]){
+void CNN::rectangle(const cv::Mat cvImg, std::vector<TargetBox>& boxes/*, const char* class_names[]*/){
    
   
    
