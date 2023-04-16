@@ -47,7 +47,7 @@ int main()
     	
 	controller.getCoordinate(y, x);
         controller.printCoordinate();
-        cv::imshow("Camera", cvImg); // 显示摄像头画面
+        cv::imshow("Camera", cvImg); // Show the webcamera image
         if (cv::waitKey(1) == 27) { // Press Esc to exit the loop
             api.g_quit = true;
             t1.detach();
