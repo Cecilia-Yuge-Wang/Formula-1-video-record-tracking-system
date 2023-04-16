@@ -50,7 +50,7 @@ Subsequently, we started exploring alternative methods beyond traditional image 
 
 Therefore, we sought to implement object detection through training neural network models. Neural networks have several advantages over Haar cascades. For instance, they can learn more complex features automatically, can handle large variations in object appearance, and are generally more accurate. Additionally, deep neural networks, such as convolutional neural networks (CNNs), have become the state-of-the-art in computer vision tasks, including object detection. By leveraging pre-trained CNN models, we were able to achieve high levels of accuracy in detecting F1 cars in real-time.<br>
 
-
+Incorporating neural network models into the image recognition process provides several advantages. Firstly, neural network models are generally more accurate and reliable than traditional methods. Secondly, they can avoid recognition interference caused by different environmental factors. Neural network models can be trained to recognize multiple types of objects simultaneously, thereby increasing the model's generalizability. When photographing race cars, a neural network model can be trained to recognize each type of car on the track, allowing for the identification of all cars in a race and enabling the selection of specific cars for photography.<br>
 ## Install & Guidance
 ### OpenCV Installation
 This project needs to use OpenCV. You need to set up the environment of OpenCV at first. The following steps will guide you how to make it. in this project, the openCV's version we use is 4.7.0. The Raspberry 4B is installed with system of Raspberry Pi OS with desktop (32-bit)<br>
