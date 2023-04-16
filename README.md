@@ -15,6 +15,9 @@ This is the Formula 1 video-record tracking system project of team 22, ENG5220: 
   - [Train Your Own Model](#train-your-own-model)
     - [1.Make Dataset](#1make-dataset)
     - [2.Train](#2train)
+- [Versions](#versions)
+  - [1.0](#10)
+  - [2.0](#20)
 - [Reference](#reference)
 ## Background
 In Formula-1 match, it is always a challenge to keep a steady track on the target for a photographer holding his camera by hand. This project develops a system installed on ground or drones to tracking the cars with the help of raspberry, and the servo motors. This can also be used on other object tracking situation, like rocket launching record.<br>
