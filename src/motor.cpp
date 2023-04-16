@@ -26,9 +26,10 @@ void motor::clockwiseRotate()
 void motor::antiClockRotate()//similar with the upside function
 {
     currentAngle -= 4;
-            if(currentAngle < 1)
+    
+    if(currentAngle < 1)
             {
-                currentAngle = 1;
+            currentAngle = 1;
             }
             pwmWrite(pin, (int)(currentAngle / 180.0 * 40));
 }
