@@ -2,7 +2,6 @@
 #define motor_H
 
 #include<wiringPi.h>
-#include<softPwm.h>
 
 
 class motor
@@ -17,7 +16,6 @@ public:
     motor(int i);
     void clockwiseRotate();
     void antiClockRotate();
-    void Rotate(float angle);
     
 };
 
