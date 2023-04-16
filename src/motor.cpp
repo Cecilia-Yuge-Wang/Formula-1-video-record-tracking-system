@@ -20,7 +20,7 @@ void motor::clockwiseRotate()
         currentAngle = 180;
     }
             
-    pwmWrite(pin, (int)((currentAngle / 180) * 40)); //turn the angle into the pwm value, and control the motor.
+    pwmWrite(pin, (int)(currentAngle / 180.0 * 40.0)); //turn the angle into the pwm value, and control the motor.
 }
 
 void motor::antiClockRotate()//similar with the upside function
@@ -32,5 +32,5 @@ void motor::antiClockRotate()//similar with the upside function
         currentAngle = 1;
     }
     
-    pwmWrite(pin, (int)((currentAngle / 180) * 40));
+    pwmWrite(pin, (int)(currentAngle / 180.0 * 40.0));
 }
