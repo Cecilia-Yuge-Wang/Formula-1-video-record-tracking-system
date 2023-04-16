@@ -41,7 +41,10 @@ The system can switch between manual target selection and automatic target selec
 ### Detection
 Regarding the real-time monitoring of F1 racing cars, we initially adopted an edge detection approach. At first, we used the Canny function in OpenCV for edge detection. We read each frame of the image from the camera in real-time, then processed it through grayscale conversion, Gaussian blur, and other filters, before using the Canny function for edge detection. However, the results were very unsatisfactory, as the image could only detect partial lines when there was too much noise reduction, and the image became very cluttered and difficult to detect the desired target when there was too little noise reduction. Moreover, there was a significant amount of environmental interference. This is illustrated in the figure.
 ![Edge Detection](./Img/edgedet.png)
-Afterwards, we adopted another method, color detection. Similarly, after processing with some filters, we used HSV quantization to select the desired color range, which was then used for detection. This method achieved certain results and was able to detect the desired race car model effectively. However, it still had significant drawbacks.
+Afterwards, we adopted another method, color detection. Similarly, after processing with some filters, we used HSV quantization to select the desired color range, which was then used for detection. This method achieved certain results and was able to detect the desired race car model effectively. However, it still had significant drawbacks.<br>
+
+Firstly, the HSV values of an object under different lighting conditions can vary significantly in an image. Although a console can be set up to constantly adjust the filtering HSV values, this method is inefficient and cumbersome. Secondly, when shooting different race cars, the paint colors of each car may differ, requiring constant changes to the HSV values. Moreover, typically, a car has large areas of the same color, but in some cases, the paint job may consist of many small color blocks of different colors, which would cause the HSV-based color detection to fail. Therefore, using HSV values for color detection can work in simulated environments to recognize objects, but it is not ideal for practical applications.
+
 
 ## Install & Guidance
 ### OpenCV Installation
