@@ -6,9 +6,12 @@ This is the Formula 1 video-record tracking system project of team 22, ENG5220: 
   - [Background](#background)
   - [Contributor](#contributor)
   - [Features](#features)
+  - [Methodology](#methodology)
+    - [Detection](#detection)
   - [Install \& Guidance](#install--guidance)
     - [OpenCV Installation](#opencv-installation)
     - [WiringPi Installation](#wiringpi-installation)
+    - [Video Streaming Installation](#video-streaming-installation)
   - [Train Your Own Model](#train-your-own-model)
     - [1.Make Dataset](#1make-dataset)
     - [2.Train](#2train)
@@ -33,6 +36,12 @@ The system can switch between manual target selection and automatic target selec
 
 >**WIP: Xbox Controller controlling**<br>
 >This is a work in progress planning. We hope to use an Xbox controller (Playstation, NS controller and etc...) to control the camera platform rotating and lock on in manual mode. However, this is only a WIP planning. **It may be cancelled due to the final result and timetable.**<br>
+## Methodology
+
+### Detection
+Regarding the real-time monitoring of F1 racing cars, we initially adopted an edge detection approach. At first, we used the Canny function in OpenCV for edge detection. We read each frame of the image from the camera in real-time, then processed it through grayscale conversion, Gaussian blur, and other filters, before using the Canny function for edge detection. However, the results were very unsatisfactory, as the image could only detect partial lines when there was too much noise reduction, and the image became very cluttered and difficult to detect the desired target when there was too little noise reduction. Moreover, there was a significant amount of environmental interference. This is illustrated in the figure.
+![Edge Detection](./Img/edgedet.png)
+Afterwards, we adopted another method, color detection. Similarly, after processing with some filters, we used HSV quantization to select the desired color range, which was then used for detection. This method achieved certain results and was able to detect the desired race car model effectively. However, it still had significant drawbacks.
 
 ## Install & Guidance
 ### OpenCV Installation
