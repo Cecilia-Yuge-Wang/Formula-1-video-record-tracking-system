@@ -15,8 +15,8 @@ int main()
     const char* filename = "./dataset/classnames.txt"; 
     api.read_class_names(filename);
     
-    api.loadModel("./model/F1F1-opt.param",
-                  "./model/F1F1-opt.bin");
+    api.loadModel("../model/F1F1-opt.param",
+                  "../model/F1F1-opt.bin");
    
     cv::VideoCapture cap(0);
     if (!cap.isOpened()) {
