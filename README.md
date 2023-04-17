@@ -290,5 +290,11 @@ Calculate map evaluation:
 python evaluation.py --data f1.data --weights modelzoo/f1model.pth
 ```
 
-# Reference
+## Reference
 https://github.com/dog-qiuqiu/Yolo-FastestV2
+
+## Social Media
+
+[![youtubeLogo](./Img/youtubeLogo.png)](https://youtu.be/z2RQPySnU4s)
+[<img src="./Img/TwitterLogo.png" alt="TwitterLogo" width="77" height="">](https://twitter.com/RPi_Team_22)
+[<img src="./Img/Bilibili_logo.png" alt="bilibiliLogo" width="77" height="">](https://www.bilibili.com/video/BV1Ya4y1T7v9/?spm_id_from=333.999.0.0)
