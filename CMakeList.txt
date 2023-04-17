@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(demo)
 
-# 添加源文件
+
 set(SOURCES
   main.cpp
   src/frameprocess.cpp
@@ -10,24 +10,24 @@ set(SOURCES
   src/Controller.cpp
 )
 
-# 添加头文件路径
+
 include_directories(
   src
   src/include
   include/ncnn
 )
 
-# 添加链接库路径
+
 link_directories(lib)
 
-# 添加链接库
+
 link_libraries(ncnn1)
 find_package(OpenCV REQUIRED)
 link_libraries(${OpenCV_LIBS})
 link_libraries(wiringPi)
 
-# 添加编译选项
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")
 
-# 生成可执行文件
+
 add_executable(demo ${SOURCES})
